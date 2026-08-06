@@ -26,14 +26,9 @@ import { ddlDiff } from '../dialects/postgres/diff';
 import { fromDrizzleSchema, fromExports } from '../dialects/postgres/drizzle';
 import type { PostgresSnapshot } from '../dialects/postgres/snapshot';
 import type { EntityFilter, Schema, Table } from '../dialects/pull-utils';
-import {
-	createHintsResolver,
-	MissingHintsError,
-	WorkerHintsHandler,
-	type Hint,
-} from './worker-hints';
+import { createHintsResolver, type Hint, MissingHintsError, WorkerHintsHandler } from './worker-hints';
 
-export { MissingHintsError } from './worker-hints';
+export { InvalidWorkerHintsError, MissingHintsError } from './worker-hints';
 export type { Hint, MissingHint } from './worker-hints';
 
 const originUUID = '00000000-0000-0000-0000-000000000000';

@@ -1,5 +1,5 @@
 import { describe, expect, test } from 'vitest';
-import { createHintsResolver, WorkerHintsHandler } from '../../src/ext/worker-hints';
+import { createHintsResolver, InvalidWorkerHintsError, WorkerHintsHandler } from '../../src/ext/worker-hints';
 
 const oldColumn = { schema: 'public', table: 'users', name: 'full_name' };
 const newColumn = { schema: 'public', table: 'users', name: 'name' };
@@ -28,10 +28,12 @@ describe('Cloudflare Worker migration hints', () => {
 			to: ['public', 'users', 'name'],
 		}]);
 
-		await expect(createHintsResolver<typeof oldColumn>('column', hints)({
-			created: [newColumn],
-			deleted: [oldColumn],
-		})).resolves.toEqual({
+		await expect(
+			createHintsResolver<typeof oldColumn>('column', hints)({
+				created: [newColumn],
+				deleted: [oldColumn],
+			}),
+		).resolves.toEqual({
 			created: [],
 			deleted: [],
 			renamedOrMoved: [{ from: oldColumn, to: newColumn }],
@@ -46,14 +48,29 @@ describe('Cloudflare Worker migration hints', () => {
 			entity: ['public', 'users', 'name'],
 		}]);
 
-		await expect(createHintsResolver<typeof oldColumn>('column', hints)({
-			created: [newColumn],
-			deleted: [oldColumn],
-		})).resolves.toEqual({
+		await expect(
+			createHintsResolver<typeof oldColumn>('column', hints)({
+				created: [newColumn],
+				deleted: [oldColumn],
+			}),
+		).resolves.toEqual({
 			created: [newColumn],
 			deleted: [oldColumn],
 			renamedOrMoved: [],
 		});
 		expect(hints.missingHints).toEqual([]);
+	});
+
+	test('rejects unsupported hint kinds and non-string tuple members', () => {
+		expect(() => new WorkerHintsHandler([{ type: 'create', kind: 'unknown', entity: ['x'] }]))
+			.toThrow(InvalidWorkerHintsError);
+		expect(() =>
+			new WorkerHintsHandler([{
+				type: 'rename',
+				kind: 'table',
+				from: ['public', 42],
+				to: ['public', 'users'],
+			}])
+		).toThrow('tuple of 2 strings');
 	});
 });

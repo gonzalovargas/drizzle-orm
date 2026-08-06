@@ -7,6 +7,16 @@ Drizzle Kit is a CLI migrator tool for Drizzle ORM. It is probably the one and o
 
 Check the full documentation on [the website](https://orm.drizzle.team/kit-docs/overview).
 
+### Cloudflare Workers API
+
+This fork also publishes a Postgres schema-diff entry that can run inside a standard Cloudflare Worker without `nodejs_compat`:
+
+```ts
+import { generateDrizzleJson, generateMigration } from 'drizzle-kit/api-postgres-worker';
+```
+
+The regular CLI and Node.js API remain available. See [WORKER_API.md](./WORKER_API.md) for the runtime contract, hints, packaging guidance, and production checks.
+
 ### AI agent skills
 
 Drizzle Kit ships installable [Agent Skills](https://skills.sh) for AI coding assistants — Claude Code, Cursor, GitHub Copilot, OpenAI Codex CLI, Gemini CLI, OpenCode, and any other tool that loads the open standard.
