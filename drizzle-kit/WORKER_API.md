@@ -129,3 +129,5 @@ The Worker entry reuses the existing Postgres schema conversion, DDL representat
 - No database introspection, `push`, Studio, CLI output formatting, or interactive prompts.
 - No migration application. The caller owns review, transaction strategy, execution, and publication.
 - The snapshot and DDL types are internal Drizzle Kit contracts and may require a rebase when upstream changes them.
+
+See [WORKER_MAINTENANCE.md](./WORKER_MAINTENANCE.md) before upgrading Drizzle, rebasing this fork, publishing the scoped Worker package, or rolling it out to production.

@@ -15,7 +15,7 @@ This fork also publishes a Postgres schema-diff entry that can run inside a stan
 import { generateDrizzleJson, generateMigration } from 'drizzle-kit/api-postgres-worker';
 ```
 
-The regular CLI and Node.js API remain available. See [WORKER_API.md](./WORKER_API.md) for the runtime contract, hints, packaging guidance, and production checks.
+The regular CLI and Node.js API remain available. See [WORKER_API.md](./WORKER_API.md) for the runtime contract and [WORKER_MAINTENANCE.md](./WORKER_MAINTENANCE.md) for the Drizzle v1 upgrade, compatibility, release, and rollback procedure.
 
 ### AI agent skills
 

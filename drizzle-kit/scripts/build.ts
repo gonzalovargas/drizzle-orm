@@ -326,6 +326,7 @@ async function main() {
 		postProcessApiFiles(),
 		fs.copyFile('package.json', 'dist/package.json'),
 		fs.copyFile('WORKER_API.md', 'dist/WORKER_API.md'),
+		fs.copyFile('WORKER_MAINTENANCE.md', 'dist/WORKER_MAINTENANCE.md'),
 		fs.cp('skills', 'dist/skills', { recursive: true }),
 	]);
 

@@ -16,6 +16,7 @@ tests/**/tmp/
 !OUTPUT_MODES.md
 !HINTS.md
 !WORKER_API.md
+!WORKER_MAINTENANCE.md
 
 !.eslint
 !.gitignore

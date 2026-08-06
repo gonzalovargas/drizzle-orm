@@ -10,10 +10,7 @@ import { join } from 'path';
 import { afterEach, describe, expect, test, vi } from 'vitest';
 import { check as sdkCheck } from '../../src/cli-sdk';
 import { HintsHandler } from '../../src/cli/hints';
-import {
-	fromExports as pgFromExports,
-	type PreparedPostgresSchema,
-} from '../../src/dialects/postgres/drizzle';
+import { fromExports as pgFromExports, type PreparedPostgresSchema } from '../../src/dialects/postgres/drizzle';
 import { SchemaSource as PgSchemaSource } from '../../src/dialects/postgres/drizzle-node';
 import {
 	fromExports as sqliteFromExports,
