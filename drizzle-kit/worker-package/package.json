@@ -1,0 +1,21 @@
+{
+	"name": "@dino/drizzle-kit-worker",
+	"version": "1.0.0-rc.4-worker.2",
+	"description": "Worker-safe Postgres schema diff API extracted from the DINO Drizzle fork",
+	"type": "module",
+	"files": [
+		"*.mjs",
+		"*.d.mts",
+		"README.md"
+	],
+	"exports": {
+		".": {
+			"types": "./api-postgres-worker.d.mts",
+			"import": "./api-postgres-worker.mjs"
+		}
+	},
+	"peerDependencies": {
+		"drizzle-orm": "1.0.0-rc.4"
+	},
+	"license": "Apache-2.0"
+}

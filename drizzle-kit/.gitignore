@@ -17,6 +17,8 @@ tests/**/tmp/
 !HINTS.md
 !WORKER_API.md
 !WORKER_MAINTENANCE.md
+!worker-package/
+!drizzle-kit-worker.tgz
 
 !.eslint
 !.gitignore

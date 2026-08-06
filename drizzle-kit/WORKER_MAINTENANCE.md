@@ -172,6 +172,8 @@ Use `drizzle-kit` for config files, `generate`, `push`, Studio, and other normal
 
 Before publishing, test `npm pack` and the packed consumer again after rewriting the package name/version. A successful local build of the unscoped package is not proof that the scoped release artifact is correct.
 
+For the temporary GitHub-pinned distribution used by DINO, run `corepack pnpm --dir drizzle-kit run pack:worker`. This builds `drizzle-kit/drizzle-kit-worker.tgz`, containing only the Worker JavaScript, declarations, README, and scoped package metadata. Commit the archive and consume it through an immutable raw URL containing that commit SHA; never depend on a moving branch URL in production.
+
 ## Production rollout
 
 1. Publish a prerelease package; do not replace the stable version first.
