@@ -16,8 +16,8 @@ import type {
 } from '../../dialects/postgres/ddl';
 import { createDDL, interimToDDL } from '../../dialects/postgres/ddl';
 import { ddlDiff, ddlDiffDry } from '../../dialects/postgres/diff';
-import { fromDrizzleSchema, prepareFromSchemaFiles } from '../../dialects/postgres/drizzle';
-import type { SchemaSource } from '../../dialects/postgres/drizzle';
+import { fromDrizzleSchema } from '../../dialects/postgres/drizzle';
+import { prepareFromSchemaFiles, type SchemaSource } from '../../dialects/postgres/drizzle-node';
 import { prepareSnapshot } from '../../dialects/postgres/serializer';
 import { prepareOutFolder } from '../../utils/utils-node';
 import { outputFormat } from '../context';

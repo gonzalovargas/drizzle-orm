@@ -41,11 +41,12 @@ async function buildBundle(options: {
 	input: string;
 	outputName: string;
 	format: 'cjs' | 'esm';
+	platform?: 'browser' | 'neutral' | 'node';
 	banner?: string;
 }) {
 	const build = await rolldown({
 		input: options.input,
-		platform: 'node',
+		platform: options.platform ?? 'node',
 		external,
 		tsconfig: 'tsconfig.json',
 	});
@@ -116,6 +117,7 @@ async function buildDeclarations() {
 	await tsdown({
 		entry: {
 			'api-postgres': './src/ext/api-postgres.ts',
+			'api-postgres-worker': './src/ext/api-postgres-worker.ts',
 			'api-mysql': './src/ext/api-mysql.ts',
 			'api-sqlite': './src/ext/api-sqlite.ts',
 			'payload-postgres': './src/payload/postgres.ts',
@@ -199,6 +201,13 @@ async function main() {
 			input: './src/ext/api-postgres.ts',
 			outputName: 'api-postgres.mjs',
 			format: 'esm',
+		}),
+		buildBundle({
+			name: 'api-postgres-worker-esm',
+			input: './src/ext/api-postgres-worker.ts',
+			outputName: 'api-postgres-worker.mjs',
+			format: 'esm',
+			platform: 'browser',
 		}),
 		buildBundle({
 			name: 'api-mysql-cjs',

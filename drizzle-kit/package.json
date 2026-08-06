@@ -153,6 +153,10 @@
 			"types": "./api-postgres.d.mts",
 			"default": "./api-postgres.mjs"
 		},
+		"./api-postgres-worker": {
+			"types": "./api-postgres-worker.d.mts",
+			"default": "./api-postgres-worker.mjs"
+		},
 		"./api-mysql": {
 			"import": {
 				"types": "./api-mysql.d.mts",

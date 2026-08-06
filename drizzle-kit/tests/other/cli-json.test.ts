@@ -13,8 +13,8 @@ import { HintsHandler } from '../../src/cli/hints';
 import {
 	fromExports as pgFromExports,
 	type PreparedPostgresSchema,
-	SchemaSource as PgSchemaSource,
 } from '../../src/dialects/postgres/drizzle';
+import { SchemaSource as PgSchemaSource } from '../../src/dialects/postgres/drizzle-node';
 import {
 	fromExports as sqliteFromExports,
 	SchemaSource as SqliteSchemaSource,

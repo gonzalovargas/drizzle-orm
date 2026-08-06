@@ -143,9 +143,9 @@ export const prepareGenerateConfig = async (
 
 	const fileNames = prepareFilenames(schema);
 
-	const { SchemaSource } = dialect === 'sqlite' || dialect === 'turso'
-		? await import('../../dialects/sqlite/drizzle')
-		: await import('../../dialects/postgres/drizzle');
+	const SchemaSource = dialect === 'sqlite' || dialect === 'turso'
+		? (await import('../../dialects/sqlite/drizzle')).SchemaSource
+		: (await import('../../dialects/postgres/drizzle-node')).SchemaSource;
 
 	return {
 		dialect: dialect,

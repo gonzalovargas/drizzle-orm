@@ -226,7 +226,7 @@ export const runPush = async (
 			}
 		}
 
-		const { SchemaSource } = await import('../dialects/postgres/drizzle');
+		const { SchemaSource } = await import('../dialects/postgres/drizzle-node');
 		const { handle } = await import('./commands/push-postgres');
 		return await handle(
 			SchemaSource.fromFilenames(filenames),

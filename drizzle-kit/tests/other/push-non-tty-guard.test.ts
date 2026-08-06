@@ -2,7 +2,8 @@ import { PGlite } from '@electric-sql/pglite';
 import BetterSqlite3 from 'better-sqlite3';
 import { afterEach, expect, test, vi } from 'vitest';
 import { HintsHandler } from '../../src/cli/hints';
-import { fromExports as pgFromExports, SchemaSource as PgSchemaSource } from '../../src/dialects/postgres/drizzle';
+import { fromExports as pgFromExports } from '../../src/dialects/postgres/drizzle';
+import { SchemaSource as PgSchemaSource } from '../../src/dialects/postgres/drizzle-node';
 import {
 	fromExports as sqliteFromExports,
 	SchemaSource as SqliteSchemaSource,
