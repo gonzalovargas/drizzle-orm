@@ -1,5 +1,5 @@
 import { ddlDiffDry } from '../../dialects/postgres/diff';
-import type { SchemaSource } from '../../dialects/postgres/drizzle';
+import type { SchemaSource } from '../../dialects/postgres/drizzle-node';
 import { combinedState, leafFolders, type MigrationsFolder } from '../../dialects/postgres/folder';
 import { stateOfSchema } from '../../dialects/postgres/serializer';
 import { SchemaFilesNotFoundCliError } from '../errors';

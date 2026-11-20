@@ -28,7 +28,8 @@ import { type Hint, HintsHandler, type RenameCreateHintKind } from 'src/cli/hint
 import { normalizeDDL } from 'src/dialects/ddl-canonical';
 import type { Delta } from 'src/dialects/dialect';
 import { interimToDDL } from 'src/dialects/postgres/ddl';
-import { fromDrizzleSchema, fromExports, SchemaSource } from 'src/dialects/postgres/drizzle';
+import { fromDrizzleSchema, fromExports } from 'src/dialects/postgres/drizzle';
+import { SchemaSource } from 'src/dialects/postgres/drizzle-node';
 import { combinedState as folderCombinedState, readFolder, withoutMigrations } from 'src/dialects/postgres/folder';
 import { reconstruct, startingState } from 'src/dialects/postgres/reconstruct';
 import type { PostgresSnapshot } from 'src/dialects/postgres/snapshot';

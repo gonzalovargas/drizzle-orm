@@ -119,6 +119,7 @@ async function buildDeclarations() {
 	await tsdown({
 		entry: {
 			'api-postgres': './src/ext/api-postgres.ts',
+			'api-postgres-worker': './src/ext/api-postgres-worker.ts',
 			'api-mysql': './src/ext/api-mysql.ts',
 			'api-sqlite': './src/ext/api-sqlite.ts',
 			'payload-postgres': './src/payload/postgres.ts',
@@ -173,6 +174,30 @@ async function postProcessApiFiles() {
 	);
 }
 
+async function validateWorkerBundle() {
+	const file = 'dist/api-postgres-worker.mjs';
+	const content = await fs.readFile(file, 'utf8');
+	const forbidden = [
+		{
+			label: 'Node.js built-in import',
+			pattern:
+				/\b(?:from\s*|import\s*(?:\(\s*)?)["'](?:node:)?(?:assert|async_hooks|crypto|fs|module|os|path|process|readline|tty|url|util|v8|vm)(?:["'/])/,
+		},
+		{ label: 'CommonJS require()', pattern: /\brequire\s*\(/ },
+		{ label: 'Node.js process.exit()', pattern: /\bprocess\.exit\s*\(/ },
+		{ label: 'CLI module loader', pattern: /\bjiti\b/ },
+		{ label: 'Node.js async context', pattern: /\bAsyncLocalStorage\b/ },
+	];
+	const violations = forbidden.filter(({ pattern }) => pattern.test(content)).map(({ label }) => label);
+	if (violations.length > 0) {
+		throw new Error(`${file} is not Worker-safe: ${violations.join(', ')}`);
+	}
+
+	console.log(
+		`  Validated ${file} (${(Buffer.byteLength(content) / 1024).toFixed(2)} KiB, no Node.js runtime dependencies)`,
+	);
+}
+
 async function main() {
 	const startTime = Date.now();
 	rmSync('dist', { recursive: true, force: true });
@@ -190,6 +215,13 @@ async function main() {
 			input: './src/index.ts',
 			outputName: 'index.mjs',
 			format: 'esm',
+		}),
+		buildBundle({
+			name: 'api-postgres-worker-esm',
+			input: './src/ext/api-postgres-worker.ts',
+			outputName: 'api-postgres-worker.mjs',
+			format: 'esm',
+			platform: 'browser',
 		}),
 		buildBundle({
 			name: 'api-postgres-cjs',
@@ -291,6 +323,7 @@ async function main() {
 	]);
 
 	await copyDeclarationsAndCleanTemp();
+	await validateWorkerBundle();
 	await Promise.all([
 		postProcessApiFiles(),
 		fs.copyFile('package.json', 'dist/package.json'),

@@ -255,7 +255,7 @@ export const runPush = async (
 			}
 		}
 
-		const { SchemaSource } = await import('../dialects/postgres/drizzle');
+		const { SchemaSource } = await import('../dialects/postgres/drizzle-node');
 		const { handle } = await import('./commands/push-postgres');
 		return await handle(
 			SchemaSource.fromFilenames(filenames),
@@ -622,7 +622,7 @@ export const runCheck = async (
 		// succeeds.
 		if (schema) {
 			const { schemaWarnings } = await import('./commands/check-postgres');
-			const { SchemaSource } = await import('../dialects/postgres/drizzle');
+			const { SchemaSource } = await import('../dialects/postgres/drizzle-node');
 			warnings = await schemaWarnings(stored, {
 				load: async () => SchemaSource.fromFilenames(prepareFilenames(schema)).load(),
 			});

@@ -19,7 +19,7 @@ import type {
 import { interimToDDL } from '../../dialects/postgres/ddl';
 import { ddlDiff } from '../../dialects/postgres/diff';
 import { fromDrizzleSchema } from '../../dialects/postgres/drizzle';
-import type { SchemaSource } from '../../dialects/postgres/drizzle';
+import type { SchemaSource } from '../../dialects/postgres/drizzle-node';
 import type { JsonStatement } from '../../dialects/postgres/statements';
 import { prepareEntityFilter } from '../../dialects/pull-utils';
 import type { DB } from '../../utils';

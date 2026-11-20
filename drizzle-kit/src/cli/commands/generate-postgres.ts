@@ -20,8 +20,8 @@ import type {
 } from '../../dialects/postgres/ddl';
 import { createDDL } from '../../dialects/postgres/ddl';
 import { ddlDiff, ddlDiffDry } from '../../dialects/postgres/diff';
-import { prepareFromSchemaFiles } from '../../dialects/postgres/drizzle';
-import type { SchemaSource } from '../../dialects/postgres/drizzle';
+import { prepareFromSchemaFiles } from '../../dialects/postgres/drizzle-node';
+import type { SchemaSource } from '../../dialects/postgres/drizzle-node';
 import { leafFolders, readFolder, withoutMigrations } from '../../dialects/postgres/folder';
 import { prepareSnapshot, stateOfSchema } from '../../dialects/postgres/serializer';
 import type { PostgresSnapshot } from '../../dialects/postgres/snapshot';

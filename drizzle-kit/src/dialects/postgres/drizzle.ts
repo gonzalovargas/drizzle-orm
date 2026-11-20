@@ -36,7 +36,6 @@ import {
 	uniqueKeyName,
 } from 'drizzle-orm/pg-core';
 import { assertUnreachable } from '../../utils';
-import { loadModule } from '../../utils/utils-node';
 import { findViewDependencies } from '../drizzle';
 import type { EntityFilter } from '../pull-utils';
 import { entityKey, getOrNull } from '../utils';
@@ -853,59 +852,4 @@ export const fromExports = (exports: Record<string, unknown>) => {
 	};
 };
 
-export const prepareFromSchemaFiles = async (imports: string[]) => {
-	const tables: AnyPgTable[] = [];
-	const enums: PgEnum<any>[] = [];
-	const schemas: PgSchema[] = [];
-	const sequences: PgSequence[] = [];
-	const views: PgView[] = [];
-	const roles: PgRole[] = [];
-	const policies: PgPolicy[] = [];
-	const matViews: PgMaterializedView[] = [];
-	const relations: Relations[] = [];
-
-	for (let i = 0; i < imports.length; i++) {
-		const it = imports[i];
-
-		const i0: Record<string, unknown> = await loadModule(it);
-		const prepared = fromExports(i0);
-
-		tables.push(...prepared.tables);
-		enums.push(...prepared.enums);
-		schemas.push(...prepared.schemas);
-		sequences.push(...prepared.sequences);
-		views.push(...prepared.views);
-		matViews.push(...prepared.matViews);
-		roles.push(...prepared.roles);
-		policies.push(...prepared.policies);
-		relations.push(...prepared.relations);
-	}
-
-	return {
-		tables,
-		enums,
-		schemas,
-		sequences,
-		views,
-		matViews,
-		roles,
-		policies,
-		relations,
-	};
-};
-
-export type PreparedPostgresSchema = Awaited<ReturnType<typeof prepareFromSchemaFiles>>;
-
-// Decouples the schema's origin (compiled `.ts` files vs. a supplied prebuilt schema) from its consumers.
-export interface SchemaSource {
-	load(): Promise<PreparedPostgresSchema>;
-}
-
-export const SchemaSource = {
-	fromFilenames(filenames: string[]): SchemaSource {
-		return { load: () => prepareFromSchemaFiles(filenames) };
-	},
-	fromSchema(schema: PreparedPostgresSchema): SchemaSource {
-		return { load: async () => schema };
-	},
-};
+export type PreparedPostgresSchema = ReturnType<typeof fromExports>;

@@ -42,12 +42,8 @@ import {
 	SchemaError,
 } from 'src/dialects/postgres/ddl';
 import { ddlDiff, ddlDiffDry } from 'src/dialects/postgres/diff';
-import {
-	defaultFromColumn,
-	fromDrizzleSchema,
-	prepareFromSchemaFiles,
-	unwrapColumn,
-} from 'src/dialects/postgres/drizzle';
+import { defaultFromColumn, fromDrizzleSchema, unwrapColumn } from 'src/dialects/postgres/drizzle';
+import { prepareFromSchemaFiles } from 'src/dialects/postgres/drizzle-node';
 import { applyDeltas } from 'src/dialects/postgres/reconstruct';
 import { mockResolver } from 'src/utils/mocks';
 import '../../src/@types/utils';
